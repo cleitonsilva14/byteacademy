@@ -27,5 +27,5 @@ public class CategoryService {
     public Category findById(String id) {
         return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException());
     }
-    
+
 }

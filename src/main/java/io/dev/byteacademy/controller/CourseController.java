@@ -27,22 +27,22 @@ public class CourseController {
     @GetMapping
     public ResponseEntity<?> getAll() {
         return ResponseEntity
-            .status(HttpStatus.OK)
-            .body(courseService.findAll());
+                .status(HttpStatus.OK)
+                .body(courseService.findAll());
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable String id) {
         return courseService.findById(id)
-            .map(c -> ResponseEntity.ok().body(c))
-            .orElse(ResponseEntity.notFound().build());
+                .map(c -> ResponseEntity.ok().body(c))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Course course){
+    public ResponseEntity<?> create(@RequestBody Course course) {
         return ResponseEntity
-            .status(HttpStatus.CREATED)
-            .body(courseService.save(course));
+                .status(HttpStatus.CREATED)
+                .body(courseService.save(course));
     }
 
     @PutMapping("/{id}")
@@ -52,13 +52,12 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id){
-        if(!courseService.existsById(id)){
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        if (!courseService.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         courseService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }
