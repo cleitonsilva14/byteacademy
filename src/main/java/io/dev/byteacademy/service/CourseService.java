@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import io.dev.byteacademy.exception.CategoryNotFoundException;
+import io.dev.byteacademy.exception.CourseNotFoundException;
 import io.dev.byteacademy.model.Category;
 import io.dev.byteacademy.model.Course;
 import io.dev.byteacademy.repository.CategoryRepository;
@@ -39,11 +41,11 @@ public class CourseService {
     public Course updateCourse(String id, Course newCourse) {
 
         Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + id));
+                .orElseThrow(() -> new CourseNotFoundException("Course not found with ID: " + id));
 
         if (newCourse.getCategory() != null && newCourse.getCategory().getId() != null) {
-            var category = categoryRepository.findById(newCourse.getCategory().getId());
-            course.setCategory(category.get());
+            var category = categoryRepository.findById(newCourse.getCategory().getId()).orElseThrow(() -> new CategoryNotFoundException("Category not found with ID: " + id));
+            course.setCategory(category);
         } else {
             throw new IllegalArgumentException("Category and Category ID are required for update.");
         }
@@ -59,8 +61,8 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public Optional<Course> findById(String id) {
-        return courseRepository.findById(id);
+    public Course findById(String id) {
+        return courseRepository.findById(id).orElseThrow(() -> new CourseNotFoundException("Course id:{%s} not found!".formatted(id)));
     }
 
     public boolean existsById(String id) {

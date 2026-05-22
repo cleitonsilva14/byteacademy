@@ -1,5 +1,6 @@
 package io.dev.byteacademy.controller;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,9 +34,10 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable String id) {
-        return courseService.findById(id)
-                .map(c -> ResponseEntity.ok().body(c))
-                .orElse(ResponseEntity.notFound().build());
+        // return courseService.findById(id)
+        //         .map(c -> ResponseEntity.ok().body(c))
+        //         .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.findById(id));
     }
 
     @PostMapping

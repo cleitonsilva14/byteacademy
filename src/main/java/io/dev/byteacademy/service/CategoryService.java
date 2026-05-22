@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import io.dev.byteacademy.exception.CategoryNotFoundException;
 import io.dev.byteacademy.model.Category;
 import io.dev.byteacademy.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class CategoryService {
     }
 
     public Category findById(String id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException("Category id:{%s} not found!".formatted(id)));
     }
 
 }
