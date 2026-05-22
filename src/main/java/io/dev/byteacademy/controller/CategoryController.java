@@ -30,6 +30,12 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(category));
     }
 
+    @PostMapping("/bulk")
+    public ResponseEntity<List<Category>> saveAll(@RequestBody List<Category> categories) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.saveAll(categories));
+    }
+    
+
     @GetMapping
     public ResponseEntity<List<Category>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAll());

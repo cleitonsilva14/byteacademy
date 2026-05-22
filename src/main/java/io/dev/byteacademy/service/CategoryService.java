@@ -21,6 +21,10 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
+    public List<Category> saveAll(List<Category> categories){
+        return categoryRepository.saveAll(categories);
+    }
+
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
