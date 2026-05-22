@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import io.dev.byteacademy.model.Category;
 
 @Repository
-public interface CategoryRepository extends MongoRepository<Category, Long> {
+public interface CategoryRepository extends MongoRepository<Category, String> {
     
 }

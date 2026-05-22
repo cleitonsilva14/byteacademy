@@ -23,5 +23,9 @@ public class CategoryService {
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
+
+    public Category findById(String id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException());
+    }
     
 }

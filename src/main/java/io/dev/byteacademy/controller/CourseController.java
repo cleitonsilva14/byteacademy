@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.dev.byteacademy.model.Course;
+import io.dev.byteacademy.service.CategoryService;
 import io.dev.byteacademy.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CourseController {
 
     private final CourseService courseService;
+    private final CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<?> getAll() {
@@ -47,12 +49,15 @@ public class CourseController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id, @RequestBody Course newCourse) {
+
+        var category = categoryService.findById(newCourse.getCategory().getId());
         
         return courseService.findById(id)
             .map(course -> {
                 course.setTitle(newCourse.getTitle());
                 course.setDuration(newCourse.getDuration());
                 course.setLevel(newCourse.getLevel());
+                course.setCategory(category);
                 return ResponseEntity.ok().body(courseService.save(course));
             }).orElse(ResponseEntity.notFound().build());
     }
