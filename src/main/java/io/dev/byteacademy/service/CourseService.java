@@ -22,7 +22,8 @@ public class CourseService {
 
     public Course save(Course course) {
 
-        if (course.getCategory() == null || course.getCategory().getId() == null || course.getCategory().getId().isBlank()) {
+        if (course.getCategory() == null || course.getCategory().getId() == null
+                || course.getCategory().getId().isBlank()) {
             throw new IllegalArgumentException("A categoria do curso e o seu ID são obrigatórios!");
         }
 
@@ -31,6 +32,25 @@ public class CourseService {
                 .orElseThrow(() -> new RuntimeException("Category not found with ID: " + categoryId));
 
         course.setCategory(categoryCompleta);
+
+        return courseRepository.save(course);
+    }
+
+    public Course updateCourse(String id, Course newCourse) {
+
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + id));
+
+        if (newCourse.getCategory() != null && newCourse.getCategory().getId() != null) {
+            var category = categoryRepository.findById(newCourse.getCategory().getId());
+            course.setCategory(category.get());
+        } else {
+            throw new IllegalArgumentException("Category and Category ID are required for update.");
+        }
+
+        course.setTitle(newCourse.getTitle());
+        course.setDuration(newCourse.getDuration());
+        course.setLevel(newCourse.getLevel());
 
         return courseRepository.save(course);
     }
