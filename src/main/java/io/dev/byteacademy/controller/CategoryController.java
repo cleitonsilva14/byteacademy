@@ -15,14 +15,12 @@ import io.dev.byteacademy.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/category")
 public class CategoryController {
-    
+
     private final CategoryService categoryService;
 
     @PostMapping
@@ -30,16 +28,15 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(category));
     }
 
-    @PostMapping("/bulk")
-    public ResponseEntity<List<Category>> saveAll(@RequestBody List<Category> categories) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.saveAll(categories));
-    }
-    
+     @PostMapping("/bulk")
+     public void saveAll(@RequestBody List<Category> categories) {
+         //return ResponseEntity.status(HttpStatus.CREATED).body(
+            categoryService.saveAll(categories);
+     }
 
     @GetMapping
     public ResponseEntity<List<Category>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAll());
     }
-    
 
 }

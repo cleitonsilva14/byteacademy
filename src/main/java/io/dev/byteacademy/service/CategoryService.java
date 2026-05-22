@@ -1,6 +1,7 @@
 package io.dev.byteacademy.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,8 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public List<Category> saveAll(List<Category> categories){
-        return categoryRepository.saveAll(categories);
+    public void saveAll(List<Category> categories){
+        
     }
 
     public List<Category> findAll() {
