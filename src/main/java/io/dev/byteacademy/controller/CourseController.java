@@ -55,6 +55,7 @@ public class CourseController {
             .map(course -> {
                 course.setTitle(newCourse.getTitle());
                 course.setDuration(newCourse.getDuration());
+                course.setLevel(newCourse.getLevel());
                 return ResponseEntity.ok().body(courseService.save(course));
             }).orElse(ResponseEntity.notFound().build());
     }

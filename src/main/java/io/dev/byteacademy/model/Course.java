@@ -3,6 +3,7 @@ package io.dev.byteacademy.model;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import io.dev.byteacademy.enums.CourseLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,7 @@ public class Course {
     @Indexed(unique = true)
     private String title;
     private Double duration;
+
+    private CourseLevel level;
+
 }
