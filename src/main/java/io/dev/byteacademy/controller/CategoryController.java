@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.dev.byteacademy.model.Category;
 import io.dev.byteacademy.service.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/category")
+@Tag(name = "Categorias", description = "Endpoints para gerenciamento de categorias dos cursos")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -28,11 +32,14 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(category));
     }
 
-     @PostMapping("/bulk")
-     public ResponseEntity<?> saveAll(@RequestBody List<Category> categories) {
-         return ResponseEntity.status(HttpStatus.CREATED).body(
-            categoryService.saveAll(categories));
-     }
+    
+    @PostMapping("/bulk")
+    @ApiResponse(responseCode = "201", description = "Lista processada com sucesso")
+    @Operation(summary = "Salva categorias em lote", description = "Recebe uma lista de categorias e ignora automaticamente os nomes duplicados.")
+    public ResponseEntity<?> saveAll(@RequestBody List<Category> categories) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                categoryService.saveAll(categories));
+    }
 
     @GetMapping
     public ResponseEntity<List<Category>> findAll() {
