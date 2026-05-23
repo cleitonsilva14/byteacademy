@@ -61,7 +61,9 @@ public class CourseService {
     }
 
     public Course findById(String id) {
-        return courseRepository.findById(id).orElseThrow(() -> new CourseNotFoundException("Course id:{%s} not found!".formatted(id)));
+        return courseRepository
+            .findById(id)
+            .orElseThrow(() -> new CourseNotFoundException("Course id:{%s} not found!".formatted(id)));
     }
 
     public boolean existsById(String id) {

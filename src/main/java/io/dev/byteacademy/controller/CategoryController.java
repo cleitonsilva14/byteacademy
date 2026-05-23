@@ -29,9 +29,9 @@ public class CategoryController {
     }
 
      @PostMapping("/bulk")
-     public void saveAll(@RequestBody List<Category> categories) {
-         //return ResponseEntity.status(HttpStatus.CREATED).body(
-            categoryService.saveAll(categories);
+     public ResponseEntity<?> saveAll(@RequestBody List<Category> categories) {
+         return ResponseEntity.status(HttpStatus.CREATED).body(
+            categoryService.saveAll(categories));
      }
 
     @GetMapping
