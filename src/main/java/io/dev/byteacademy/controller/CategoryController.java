@@ -34,7 +34,7 @@ public class CategoryController {
 
     
     @PostMapping("/bulk")
-    @ApiResponse(responseCode = "201", description = "Lista processada com sucesso")
+    @ApiResponse(responseCode = "201", description = "Lista de Category salva com sucesso")
     @Operation(summary = "Salva categorias em lote", description = "Recebe uma lista de categorias e ignora automaticamente os nomes duplicados.")
     public ResponseEntity<?> saveAll(@RequestBody List<Category> categories) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
