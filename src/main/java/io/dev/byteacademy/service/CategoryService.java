@@ -32,4 +32,12 @@ public class CategoryService {
         return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException("Category id:{%s} not found!".formatted(id)));
     }
 
+    public boolean existsById(String id) {
+        return categoryRepository.existsById(id);
+    }
+
+    public void deleteById(String id) {
+        categoryRepository.deleteById(id);
+    }
+
 }
